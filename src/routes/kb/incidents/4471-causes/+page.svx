@@ -4,7 +4,7 @@ title: '#4471 · two bugs, not one'
 owner: Wozacosta
 status: closed
 reviewed: 2026-10-31
-signature: Wozacosta
+signature: v1.eyJzdWIiOiIyNDQ5IiwiYXVkIjoiY2hhbGxlbmdlOndoYXQtaXQtc2hvd3MiLCJpYXQiOjE3OTM0NjI4ODcsImV4cCI6MTc5MzU0OTI4N30.lCMiz7pCajNTrbhDSkY6ZSzFgKF-d9nKPRHdgRbzK0U
 ---
 
 <script>
