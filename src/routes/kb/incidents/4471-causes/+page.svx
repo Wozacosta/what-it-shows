@@ -2,7 +2,7 @@
 layout: runbook
 title: '#4471 · two bugs, not one'
 owner: Wozacosta
-status: draft
+status: closed
 reviewed: 2026-10-31
 signature: Wozacosta
 ---
@@ -14,12 +14,12 @@ signature: Wozacosta
   import RenderStamp from '#lib/kb/RenderStamp.svelte';
 </script>
 
-[#4471](/kb/incidents/4471) says one issue, one fix queued. Its reports show two bugs. The queued
-fix can only reach one of them.
+[#4471](/kb/incidents/4471) says one issue, one fix queued. Its reports show two bugs, and they
+ended differently. Engineering closed #4471 on 5 October.
 
 <Callout kind="warn">
-Fixing the parser does not close #4471. Reports from the booking-v3 form keep coming until its
-date hint changes too.
+Only the parser bug was fixed. The hint bug was closed as won't fix, because the booking-v3 form is
+retired. "Fixed" is true of one ticket, not of #4471.
 </Callout>
 
 ## What the reports show
@@ -31,11 +31,12 @@ export repeats some rows, and it places each report by its tenant.
 
 The last column of the table was written before these tickets existed. Each cause now has one:
 
-- `parser`: [issue #1](https://github.com/Wozacosta/what-it-shows/issues/1). The shared parser reads
-  every date month first, so a day-first tenant's dates come out flipped.
-- `hint`: [issue #2](https://github.com/Wozacosta/what-it-shows/issues/2). The booking-v3 form prints
-  `MM/DD/YYYY` under its date field. People type what it tells them, and the form reads the date
-  the tenant's way.
+- `parser`: [issue #1](https://github.com/Wozacosta/what-it-shows/issues/1), fixed by
+  `fix(dates): parse dd/mm for eu locales`. The shared parser read every date month first, so a
+  day-first tenant's dates came out flipped.
+- `hint`: [issue #2](https://github.com/Wozacosta/what-it-shows/issues/2), won't fix: booking-v3
+  form retired. The form printed `MM/DD/YYYY` under its date field. People typed what it told them,
+  and the form read the date the tenant's way.
 
 ## How to tell them apart
 
@@ -52,7 +53,7 @@ Intake guesses from the reporter's browser, so an en-US browser at a day-first t
 The note under the table counts reports that read as a one-day move, not a flip. One client in
 Lisbon and one in Toronto saw different weekdays for the same meeting, and a month-first parser
 does not do that. They stay counted under `parser`, the way the desk files them, because they come
-from those tenants. Nobody has shown that the parser causes them, so check them after the fix ships
+from those tenants. Nobody has shown that the parser caused them, so the parser fix may not cover them
 ([issue #1](https://github.com/Wozacosta/what-it-shows/issues/1) lists them). If they keep coming,
 they need a ticket of their own.
 
@@ -62,8 +63,8 @@ they need a ticket of their own.
 
 ## Next
 
-- Ship the parser fix, then watch the form reports from booking-v3 tenants: they should not drop.
-- Change the booking-v3 hint to match how the form reads the date.
+- Watch for new one-day reports now that the parser fix is out.
+- Confirm that every booking-v3 tenant is off the form. Until then, the wrong hint is still live.
 - Write a new decision record for dedupe. Decision 0001 stays as it was accepted, and the record
   that replaces it should merge on cause, not subject.
 
